@@ -1,0 +1,8 @@
+						{% for TodoTBL in todo_list %}
+							<li class="list-group-item">{{ TodoTBL.accion }}</li>
+						{% endfor %}
+						<a href="{% url 'complete' %}"><li class="list-group-item">{{ itemtododeIndex.accion }}</li></a>
+
+<link rel="stylesheet" href= "{% static 'todoapp/bs/css/flatly.min.css' %}" />
+<link rel="stylesheet" href= "{% static 'todoapp/styles.css' %}" />
+

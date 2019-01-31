@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>ToDoJGG App</title>
+
+		<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+
+		<!-- Bootstrap CSS -->
+
+		<!--<link rel="stylesheet" href= "todoapp/bs/css/flatly.min.css"> -->
+		<!--<link rel="stylesheet" href= "todoapp/styles.css"> -->
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+	  
+
+	</head>
+	<body>
+		<div class="container-fluid mx-auto w-50 bg-dark" id="wrapper">
+
+			<h1 class="text-center"><span class="text-white">WHAT DO YOU WANT TO DO TODAY?</span></h1>
+
+			<form action="{% url 'add' %}" method="POST" role="form">
+				{% csrf_token %}
+				<div class="form-group">
+					<div class="input-group">
+						{{ todo_formViews.texto }}
+						<span class="input-group-btn">
+							<button type="submit" class="btn btn-secondary" id="add-btn">ADD</button>
+						</span>
+					</div>
+				</div>
+			</form>
+				
+			<div class="row t10">
+				<div class="col-lg-12">
+					<div class="btn-toolbar">
+						<div class="btn-group">
+							<a href="{% url 'deletecompleted' %}"><button type="button" class="btn btn-secondary">
+									DELETE COMPLETED
+							</button></a>
+						</div>
+						<div class="btn-group">
+							<a href="{% url 'deleteall' %}"><button type="button" class="btn btn-danger">
+									DELETE ALL
+							</button></a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<ul class="list-group">
+				{% for itemtododeIndex in todotbl_deViews %}
+					{% if itemtododeIndex.estado %}
+						<li class="list-group-item disabled list-group-item-light">
+							<strike>{{ itemtododeIndex.accion }}</strike>
+						</li>
+					{% else %}
+						<a href="{% url 'complete' itemtododeIndex.id %}">
+							<li class="list-group-item list-group-item-primary">
+								{{ itemtododeIndex.accion }}
+							</li>
+						</a>
+					{% endif %}
+				{% endfor %}
+			</ul>
+					
+			<footer>
+
+					<div class="text-center text-white">
+						Copyright &copy; 2017 <strong>ToDo App</strong>
+					</div>
+
+			</footer>
+		</div>
+	</body>
+</html>
